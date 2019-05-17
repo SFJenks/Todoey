@@ -13,7 +13,8 @@
 		96042F6E225C200E006DB823 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96042F6C225C200E006DB823 /* Main.storyboard */; };
 		96042F70225C200F006DB823 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96042F6F225C200F006DB823 /* Assets.xcassets */; };
 		96042F73225C200F006DB823 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96042F71225C200F006DB823 /* LaunchScreen.storyboard */; };
-		963D1B9E227923E700A77B97 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 963D1B9C227923E700A77B97 /* DataModel.xcdatamodeld */; };
+		964B0C08228B96EA000FCA38 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B0C07228B96EA000FCA38 /* Item.swift */; };
+		964B0C0A228B96FA000FCA38 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B0C09228B96FA000FCA38 /* Category.swift */; };
 		96D48AB82284FFC7004C8044 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D48AB72284FFC7004C8044 /* CategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +29,8 @@
 		96042F6F225C200F006DB823 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96042F72225C200F006DB823 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96042F74225C200F006DB823 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		963D1B9D227923E700A77B97 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		964B0C07228B96EA000FCA38 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		964B0C09228B96FA000FCA38 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		96D48AB72284FFC7004C8044 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,7 +52,6 @@
 				668E802165B6B3D14577E1C4 /* Pods-Todoey.debug.xcconfig */,
 				88A0BE5F6D005DCC4461D565 /* Pods-Todoey.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -88,7 +89,8 @@
 		96042F7C2266AB68006DB823 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				963D1B9C227923E700A77B97 /* DataModel.xcdatamodeld */,
+				964B0C09228B96FA000FCA38 /* Category.swift */,
+				964B0C07228B96EA000FCA38 /* Item.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -249,10 +251,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				964B0C08228B96EA000FCA38 /* Item.swift in Sources */,
 				96D48AB82284FFC7004C8044 /* CategoryViewController.swift in Sources */,
 				96042F6B225C200E006DB823 /* TodoListViewController.swift in Sources */,
-				963D1B9E227923E700A77B97 /* DataModel.xcdatamodeld in Sources */,
 				96042F69225C200E006DB823 /* AppDelegate.swift in Sources */,
+				964B0C0A228B96FA000FCA38 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,19 +457,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		963D1B9C227923E700A77B97 /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				963D1B9D227923E700A77B97 /* DataModel.xcdatamodel */,
-			);
-			currentVersion = 963D1B9D227923E700A77B97 /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 96042F5D225C200E006DB823 /* Project object */;
 }
