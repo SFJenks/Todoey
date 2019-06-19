@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class CategoryViewController: SwipeTableViewController {
 
@@ -15,24 +16,56 @@ class CategoryViewController: SwipeTableViewController {
     
     var categories : Results<Category>?
     
+    var defaultBackgroundColor : UIColor? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("loaded category view controller")
         loadCategories()
-        
-        tableView.rowHeight = 80
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        if let color = defaultBackgroundColor {
+//            guard let navBar = navigationController?.navigationBar else {fatalError("Navigation Controller does not exist.")}
+//            navBar.barTintColor = color
+//            navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.flatWhite]
+//
+//        } else {
+//            guard let navBar = navigationController?.navigationBar else {fatalError("Navigation Controller does not exist.")}
+//            defaultBackgroundColor = navBar.barTintColor    // save the nav bar color
+//        }
+//        tableView.reloadData()
+//    }
 
     //MARK: - TableView Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories?.count ?? 1
+        var count = categories?.count ?? 1
+        if count < 1 {
+            count = 1
+        }
+//        print("category count is \(count)")
+        return count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        let category = categories?[indexPath.row].name ?? "No Categories Added"
-        cell.textLabel?.text = category
+        var categoryName = "No Categories Added"
+        var category : Category? = nil
+        let color = UIColor(randomFlatColorOf:.light)
+        var colorString = color.hexValue()
+        if let categoryCount = categories?.count {
+            if categoryCount > indexPath.row {  // so we have enough
+                category = categories?[indexPath.row]
+                categoryName = category?.name ?? categoryName
+                colorString = category?.bgColor ?? colorString
+                //print("category color is \(colorString)")
+            }
+        }
+        //print("color for row \(indexPath.row) is \(colorString)")
+        cell.textLabel?.text = categoryName
+        cell.backgroundColor = UIColor(hexString: colorString)
+        cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
         return cell
     }
     
@@ -80,7 +113,27 @@ class CategoryViewController: SwipeTableViewController {
                 
                 let newCategory = Category()
                 newCategory.name = textField.text!;
-                
+                var color = UIColor(randomFlatColorOf:.light)
+                var colorIsDark = true
+                var colorString = color.hexValue()
+                repeat {    // loop until it is a lightish color
+                    var hexString = colorString
+                    hexString.remove(at: hexString.startIndex)
+                    let num : Int = Int(hexString, radix: 16) ?? 0
+//                    print("num is \(num)")
+                    let red = num >> 16
+                    let green = (num >> 8) & 0xff
+                    let blue = num & 0xff
+                    if red < 100 || green < 100 || blue < 100 {
+                        color = UIColor(randomFlatColorOf:.light)
+                        colorString = color.hexValue()
+                    } else {
+                        colorIsDark = false
+                    }
+                } while (colorIsDark)
+//                print("color is \(colorString)")
+
+                newCategory.bgColor = colorString
                 self.save(category: newCategory)
             }
             self.tableView.reloadData()
@@ -98,7 +151,9 @@ class CategoryViewController: SwipeTableViewController {
     
     //MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToItems", sender: self)
+        if (indexPath.row < categories?.count ?? 0) {
+            performSegue(withIdentifier: "goToItems", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
